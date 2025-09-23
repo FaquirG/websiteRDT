@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reality Dream Tech — Soluções em TI</title>
+  <meta name="description" content="Reality Dream Tech — Desenvolvimento de sistemas, apps, redes, cibersegurança e outsourcing/helpdesk." />
+
+  <!-- Tailwind CSS (production build) -->
+  <link href="dist/output.css" rel="stylesheet">
+
+  <style>
+    /* Cores base alinhadas ao logo: preto/escuro, branco, azul */
+    :root{
+      --rdt-blue:#5692c0; /* azul extraído do logotipo */
+      --rdt-dark:#222226;
+    }
+
+    /* Particle background */
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--rdt-blue);
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: float 8s linear infinite;
+      filter: drop-shadow(0 0 6px rgba(30,144,255,0.6));
+    }
+    @keyframes float {
+      0%{ transform: translateY(0) translateX(0) scale(1); opacity: .9; }
+      50%{ transform: translateY(-60px) translateX(30px) scale(.8); opacity: .6;}
+      100%{ transform: translateY(0) translateX(0) scale(1); opacity: .9;}
+    }
+
+    /* 3D card tilt */
+    .card-3d {
+      transform-style: preserve-3d;
+      perspective: 1200px;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .card-3d:hover {
+      transform: translateY(-8px) rotateX(4deg) rotateY(-6deg) scale(1.01);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    /* Neon title effect */
+    .neon {
+      text-shadow: 0 2px 6px rgba(30,144,255,0.25), 0 0 18px rgba(30,144,255,0.12);
+    }
+
+    /* Floating hero circle */
+    .ring-anim {
+      animation: ring 6s linear infinite;
+    }
+    @keyframes ring {
+      0%{ transform: rotate(0);}
+      100%{ transform: rotate(360deg);}
+    }
+
+    /* Simple carousel */
+    .carousel-track { display:flex; gap:1.25rem; transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+  </style>
+</head>
+<body class="antialiased bg-white text-gray-800">
+
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 right-0 z-40">
+    <nav class="backdrop-blur-sm bg-white/60 dark:bg-[#0b0b0c]/60 border-b border-transparent dark:border-gray-800">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="real-dream-logo.jpg" alt="Reality Dream Tech" class="h-10 w-10 object-contain rounded" onerror="this.style.display='none'"/>
+          <div>
+            <h1 class="font-extrabold text-lg tracking-tight text-[$--rdt-dark] dark:text-white">Reality Dream Tech</h1>
+            <p class="text-xs text-gray-500">Transformamos sonhos em realidade digital</p>
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-6">
+          <a href="#services" class="text-sm hover:text-[var(--rdt-blue)]">Serviços</a>
+          <a href="#plans" class="text-sm hover:text-[var(--rdt-blue)]">Planos Helpdesk</a>
+          <a href="#portfolio" class="text-sm hover:text-[var(--rdt-blue)]">Portfólio</a>
+          <a href="#contact" class="text-sm hover:text-[var(--rdt-blue)]">Contacto</a>
+          <button id="themeToggle" class="px-3 py-1 rounded-md border text-sm">Dark</button>
+        </div>
+
+        <div class="md:hidden">
+          <button id="mobileMenuBtn" aria-label="menu" class="p-2 rounded-md border"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg></button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden fixed inset-x-4 top-20 bg-white rounded-lg shadow-lg p-4 max-w-sm mx-auto hidden z-50">
+    <a href="#services" class="block py-2">Serviços</a>
+    <a href="#plans" class="block py-2">Planos Helpdesk</a>
+    <a href="#portfolio" class="block py-2">Portfólio</a>
+    <a href="#contact" class="block py-2">Contacto</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden pt-28 pb-16">
+    <!-- particles generated via JS -->
+    <div id="particles" class="pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+      <!-- Texto à esquerda -->
+      <div class="w-full md:w-6/12 order-2 md:order-1 flex flex-col">
+        <div class="max-w-xl">
+          <h2 class="text-4xl md:text-5xl font-extrabold leading-tight neon" style="color:var(--rdt-dark)">
+            Transformamos sonhos <br/>em <span style="color:var(--rdt-blue)">realidade digital</span>
+          </h2>
+          <p class="mt-4 text-gray-600">Soluções sob medida em desenvolvimento de sistemas, aplicações web, redes, consultoria, apps mobile e cibersegurança. Innovação, segurança e performance para o teu negócio.</p>
+
+          <div class="mt-6 flex gap-3">
+            <a href="#contact" class="px-5 py-3 rounded-md bg-[var(--rdt-blue)] text-white font-semibold shadow hover:shadow-lg">Solicitar Orçamento</a>
+            <a href="#plans" class="px-5 py-3 rounded-md border border-gray-200">Ver Planos</a>
+          </div>
+
+          <!-- quick features -->
+          <div class="mt-8 grid grid-cols-2 gap-3">
+            <div class="bg-gray-50 p-3 rounded-lg flex items-start gap-3">
+              <div class="h-9 w-9 rounded-full flex items-center justify-center border border-gray-200">🔒</div>
+              <div>
+                <div class="text-sm font-semibold">Cibersegurança</div>
+                <div class="text-xs text-gray-500">Proteção e conformidade</div>
+              </div>
+            </div>
+            <div class="bg-gray-50 p-3 rounded-lg flex items-start gap-3">
+              <div class="h-9 w-9 rounded-full flex items-center justify-center border border-gray-200">⚙️</div>
+              <div>
+                <div class="text-sm font-semibold">Sistemas & Apps</div>
+                <div class="text-xs text-gray-500">Desenvolvimento escalável</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero visual à direita -->
+      <div class="w-full md:w-6/12 order-1 md:order-2 flex justify-end items-center">
+        <div class="relative w-80 h-80 rounded-xl bg-gradient-to-br from-white to-gray-50 border border-gray-100 flex items-center justify-center ring-anim" style="box-shadow: 0 20px 40px rgba(30,144,255,0.06);">
+          <!-- stylized ring + logo -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-48 h-48 rounded-full border-4 border-dashed border-gray-200 flex items-center justify-center transform-gpu">
+              <img src="real-dream-logo.jpg" alt="logo" class="h-28 w-28 object-contain" onerror="this.style.display='none'"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <h3 class="text-2xl font-bold text-gray-800">Serviços</h3>
+      <p class="text-gray-500 mt-2 max-w-2xl">Oferecemos um portefólio completo para acelerar a transformação digital da tua empresa.</p>
+
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- card template -->
+        <div class="p-6 bg-white rounded-xl border card-3d">
+          <div class="flex items-center gap-4">
+            <div class="h-12 w-12 rounded-lg flex items-center justify-center border border-gray-200">💻</div>
+            <div>
+              <h4 class="font-semibold">Desenvolvimento de Sistemas</h4>
+              <p class="text-sm text-gray-500">Soluções back-end e front-end sob medida.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 bg-white rounded-xl border card-3d">
+          <div class="flex items-center gap-4">
+            <div class="h-12 w-12 rounded-lg flex items-center justify-center border border-gray-200">🌐</div>
+            <div>
+              <h4 class="font-semibold">Aplicações Web</h4>
+              <p class="text-sm text-gray-500">Web apps responsivas e escaláveis.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 bg-white rounded-xl border card-3d">
+          <div class="flex items-center gap-4">
+            <div class="h-12 w-12 rounded-lg flex items-center justify-center border border-gray-200">📱</div>
+            <div>
+              <h4 class="font-semibold">Apps Mobile</h4>
+              <p class="text-sm text-gray-500">iOS / Android com UX de qualidade.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 bg-white rounded-xl border card-3d">
+          <div class="flex items-center gap-4">
+            <div class="h-12 w-12 rounded-lg flex items-center justify-center border border-gray-200">🔗</div>
+            <div>
+              <h4 class="font-semibold">Redes de Computadores</h4>
+              <p class="text-sm text-gray-500">Conceção, implementação e suporte.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 bg-white rounded-xl border card-3d">
+          <div class="flex items-center gap-4">
+            <div class="h-12 w-12 rounded-lg flex items-center justify-center border border-gray-200">🛡️</div>
+            <div>
+              <h4 class="font-semibold">Cibersegurança</h4>
+              <p class="text-sm text-gray-500">Avaliações, deteção e resposta a incidentes.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 bg-white rounded-xl border card-3d">
+          <div class="flex items-center gap-4">
+            <div class="h-12 w-12 rounded-lg flex items-center justify-center border border-gray-200">☁️</div>
+            <div>
+              <h4 class="font-semibold">Cloud & Virtualização</h4>
+              <p class="text-sm text-gray-500">Migração e gestão de infraestruturas cloud.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans -->
+  <section id="plans" class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h3 class="text-2xl font-bold">Planos de Helpdesk & Outsourcing</h3>
+      <p class="text-gray-500 mt-2 max-w-2xl">Escolhe um plano que encaixe na tua operação — do suporte essencial a parcerias estratégicas completas.</p>
+
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Base -->
+        <article class="p-6 rounded-2xl bg-white border card-3d">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-lg font-bold">Plano Base</h4>
+              <p class="text-sm text-gray-500">6 meses • até 15 utilizadores</p>
+            </div>
+            <div class="text-[#059669] font-extrabold text-xl">USD 560<span class="text-sm font-normal">/mês</span></div>
+          </div>
+
+          <ul class="mt-4 space-y-2 text-sm text-gray-600">
+            <li>• Suporte remoto + 3 intervenções presenciais/mês</li>
+            <li>• Monitoramento básico</li>
+            <li>• Consultoria pontual em cibersegurança</li>
+            <li>• Backups com verificação semanal</li>
+            <li>• Relatórios mensais</li>
+          </ul>
+
+          <div class="mt-6">
+            <button class="w-full py-3 rounded-md bg-[var(--rdt-blue)] text-white font-semibold plan-btn" data-plan="Plano Base • USD 560/mês">Quero este plano</button>
+          </div>
+        </article>
+
+        <!-- Pro -->
+        <article class="p-6 rounded-2xl bg-white border card-3d">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-lg font-bold">Plano Pro</h4>
+              <p class="text-sm text-gray-500">12 meses • até 40 utilizadores</p>
+            </div>
+            <div class="text-[#f97316] font-extrabold text-xl">USD 840<span class="text-sm font-normal">/mês</span></div>
+          </div>
+
+          <ul class="mt-4 space-y-2 text-sm text-gray-600">
+            <li>• Suporte remoto ilimitado + 5 visitas presenciais/mês</li>
+            <li>• Monitoramento 24/7 avançado</li>
+            <li>• Backups e recuperação de desastres</li>
+            <li>• Consultoria contínua</li>
+            <li>• Treinamento da equipa (2/ano)</li>
+          </ul>
+
+          <div class="mt-6">
+            <button class="w-full py-3 rounded-md bg-[var(--rdt-blue)] text-white font-semibold plan-btn" data-plan="Plano Pro • USD 840/mês">Quero este plano</button>
+          </div>
+        </article>
+
+        <!-- Premium -->
+        <article class="p-6 rounded-2xl bg-white border card-3d">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-lg font-bold">Plano Premium</h4>
+              <p class="text-sm text-gray-500">24 meses • até 80 utilizadores</p>
+            </div>
+            <div class="text-[var(--rdt-blue)] font-extrabold text-xl">USD 1.750<span class="text-sm font-normal">/mês</span></div>
+          </div>
+
+          <ul class="mt-4 space-y-2 text-sm text-gray-600">
+            <li>• Suporte total (remoto + presencial ilimitado)</li>
+            <li>• Monitoramento com IA preditiva</li>
+            <li>• Gestão completa de infraestruturas</li>
+            <li>• Compliance & conformidade</li>
+            <li>• Formação contínua (4/ano)</li>
+          </ul>
+
+          <div class="mt-6">
+            <button class="w-full py-3 rounded-md bg-[var(--rdt-blue)] text-white font-semibold plan-btn" data-plan="Plano Premium • USD 1750/mês">Quero este plano</button>
+          </div>
+        </article>
+      </div>
+
+      <!-- responsive comparative table -->
+      <div class="mt-10 overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-white border-t border-b">
+              <th class="p-3 text-left">Característica</th>
+              <th class="p-3 text-left">Base</th>
+              <th class="p-3 text-left">Pro</th>
+              <th class="p-3 text-left">Premium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="p-3">Duração</td>
+              <td class="p-3">6 meses</td>
+              <td class="p-3">12 meses</td>
+              <td class="p-3">24 meses</td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="p-3">Suporte presencial</td>
+              <td class="p-3">Até 3/mês</td>
+              <td class="p-3">Até 5/mês</td>
+              <td class="p-3">Ilimitado</td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="p-3">Monitoramento</td>
+              <td class="p-3">Básico</td>
+              <td class="p-3">24/7 avançado</td>
+              <td class="p-3">Avançado + IA</td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="p-3">Formação</td>
+              <td class="p-3">—</td>
+              <td class="p-3">2/ano</td>
+              <td class="p-3">4/ano</td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="p-3">Relatórios</td>
+              <td class="p-3">Mensal</td>
+              <td class="p-3">Trimestral</td>
+              <td class="p-3">Mensal + Executivo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <h3 class="text-2xl font-bold">Portfólio</h3>
+      <p class="text-gray-500 mt-2 max-w-2xl">Casos de sucesso e projetos que já entregámos.</p>
+
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-4 rounded-xl border card-3d">
+          <div class="h-40 bg-gradient-to-br from-gray-100 to-white rounded-md flex items-end p-4">
+            <div>
+              <h4 class="font-semibold">Gestão Documental</h4>
+              <p class="text-xs text-gray-500">Sistema personalizado para empresa X</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border card-3d">
+          <div class="h-40 bg-gradient-to-br from-gray-100 to-white rounded-md flex items-end p-4">
+            <div>
+              <h4 class="font-semibold">Plataforma E-commerce</h4>
+              <p class="text-xs text-gray-500">Lojas integradas e performance otimizada</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border card-3d">
+          <div class="h-40 bg-gradient-to-br from-gray-100 to-white rounded-md flex items-end p-4">
+            <div>
+              <h4 class="font-semibold">Monitoramento de Rede</h4>
+              <p class="text-xs text-gray-500">Solução 24/7 com alertas e painel</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section id="team" class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h3 class="text-2xl font-bold">Nossa Equipa</h3>
+      <p class="text-gray-500 mt-2">Profissionais multidisciplinares com experiência em TI, redes e segurança.</p>
+
+      <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="text-center">
+          <div class="h-20 w-20 rounded-full bg-gradient-to-br from-gray-200 to-white mx-auto flex items-center justify-center">JD</div>
+          <div class="mt-2 text-sm font-semibold">João</div>
+          <div class="text-xs text-gray-500">Dev Lead</div>
+        </div>
+        <div class="text-center">
+          <div class="h-20 w-20 rounded-full bg-gradient-to-br from-gray-200 to-white mx-auto flex items-center justify-center">MA</div>
+          <div class="mt-2 text-sm font-semibold">Marta</div>
+          <div class="text-xs text-gray-500">Cloud & Infra</div>
+        </div>
+        <div class="text-center">
+          <div class="h-20 w-20 rounded-full bg-gradient-to-br from-gray-200 to-white mx-auto flex items-center justify-center">RC</div>
+          <div class="mt-2 text-sm font-semibold">Rui</div>
+          <div class="text-xs text-gray-500">Segurança</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials & Clients -->
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <h3 class="text-2xl font-bold">Depoimentos & Clientes</h3>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 bg-white border rounded-xl">
+          <p class="text-gray-600">"A Reality Dream Tech transformou a nossa infra-estrutura. Resposta rápida e equipa muito profissional."</p>
+          <div class="mt-4 text-sm font-semibold">— Cliente A</div>
+        </div>
+
+        <div class="p-6 bg-white border rounded-xl">
+          <p class="text-gray-600">"Entrega no prazo e solução escalável. Recomendo para projetos complexos."</p>
+          <div class="mt-4 text-sm font-semibold">— Cliente B</div>
+        </div>
+      </div>
+
+      <div class="mt-8 overflow-hidden">
+        <div id="clientCarousel" class="carousel-track">
+          <div class="h-16 w-40 bg-gray-100 rounded-lg flex items-center justify-center">Logo 1</div>
+          <div class="h-16 w-40 bg-gray-100 rounded-lg flex items-center justify-center">Logo 2</div>
+          <div class="h-16 w-40 bg-gray-100 rounded-lg flex items-center justify-center">Logo 3</div>
+          <div class="h-16 w-40 bg-gray-100 rounded-lg flex items-center justify-center">Logo 4</div>
+          <div class="h-16 w-40 bg-gray-100 rounded-lg flex items-center justify-center">Logo 5</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-12 bg-[#f9fafb]">
+    <div class="max-w-4xl mx-auto px-6">
+      <h3 class="text-2xl font-bold">Contacto</h3>
+      <p class="text-gray-500 mt-2">Envia uma mensagem para falarmos sobre o teu projeto ou para solicitar um orçamento.</p>
+
+      <form id="contactForm" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4" onsubmit="submitContact(event)">
+        <input type="text" id="name" placeholder="Nome" required class="p-3 border rounded-md" />
+        <input type="email" id="email" placeholder="Email" required class="p-3 border rounded-md" />
+        <input type="text" id="company" placeholder="Empresa (opcional)" class="p-3 border rounded-md col-span-2" />
+        <select id="interestedPlan" class="p-3 border rounded-md col-span-2">
+          <option value="">Interesse (ex: Plano Base / Pro / Premium / Outro)</option>
+          <option>Plano Base</option>
+          <option>Plano Pro</option>
+          <option>Plano Premium</option>
+          <option>Outro</option>
+        </select>
+        <textarea id="message" placeholder="Mensagem" rows="4" class="p-3 border rounded-md col-span-2"></textarea>
+
+        <div class="col-span-2 flex items-center gap-3">
+          <button type="submit" class="px-5 py-3 rounded-md bg-[var(--rdt-blue)] text-white font-semibold">Enviar Mensagem</button>
+          <div id="contactStatus" class="text-sm text-gray-500"></div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-white border-t">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-gray-600">© <strong>Reality Dream Tech</strong> — Todos os direitos reservados.</div>
+      <div class="flex items-center gap-4 text-sm">
+        <a href="#" class="hover:text-[var(--rdt-blue)]">Política de Privacidade</a>
+        <a href="#" class="hover:text-[var(--rdt-blue)]">Termos</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal for plan enquiry -->
+  <div id="planModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+    <div class="bg-white rounded-xl p-6 w-full max-w-lg">
+      <div class="flex items-start justify-between">
+        <h4 class="text-lg font-bold" id="selectedPlanTitle">Contacto</h4>
+        <button id="closeModal" class="text-gray-500">✕</button>
+      </div>
+
+      <form id="planForm" class="mt-4 grid gap-3" onsubmit="submitPlanForm(event)">
+        <input type="text" id="p_name" placeholder="Nome completo" required class="p-3 border rounded-md" />
+        <input type="email" id="p_email" placeholder="Email" required class="p-3 border rounded-md" />
+        <input type="text" id="p_company" placeholder="Empresa (opcional)" class="p-3 border rounded-md" />
+        <textarea id="p_message" rows="4" class="p-3 border rounded-md" placeholder="Qual a tua necessidade?"></textarea>
+        <div class="flex items-center gap-3">
+          <button class="px-4 py-2 rounded-md bg-[var(--rdt-blue)] text-white">Enviar pedido</button>
+          <button type="button" id="cancelPlan" class="px-4 py-2 rounded-md border">Cancelar</button>
+        </div>
+        <div id="planStatus" class="text-sm text-gray-500"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Simple theme toggle
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      themeBtn.textContent = document.documentElement.classList.contains('dark') ? 'Light' : 'Dark';
+    });
+
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Generate particles in hero
+    const particles = document.getElementById('particles');
+    const pCount = 12;
+    for (let i=0;i<pCount;i++){
+      const el = document.createElement('div');
+      el.className = 'particle';
+      const size = 4 + Math.random()*8;
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      el.style.left = (10 + Math.random()*80) + '%';
+      el.style.top = (20 + Math.random()*60) + '%';
+      el.style.animationDelay = (Math.random()*5) + 's';
+      el.style.opacity = .5 + Math.random()*.6;
+      particles.appendChild(el);
+    }
+
+    // Plan modal
+    const planButtons = document.querySelectorAll('.plan-btn');
+    const planModal = document.getElementById('planModal');
+    const selectedPlanTitle = document.getElementById('selectedPlanTitle');
+    const closeModal = document.getElementById('closeModal');
+    const cancelPlan = document.getElementById('cancelPlan');
+
+    planButtons.forEach(btn=>{
+      btn.addEventListener('click', () => {
+        const plan = btn.dataset.plan || 'Plano';
+        selectedPlanTitle.textContent = `Interessado em: ${plan}`;
+        planModal.classList.remove('hidden');
+        planModal.classList.add('flex');
+      });
+    });
+    closeModal.addEventListener('click', ()=> hideModal());
+    cancelPlan.addEventListener('click', ()=> hideModal());
+    function hideModal(){
+      planModal.classList.add('hidden');
+      planModal.classList.remove('flex');
+      document.getElementById('planStatus').textContent = '';
+    }
+
+    // Contact form submission (simulado)
+    function submitContact(e){
+      e.preventDefault();
+      const status = document.getElementById('contactStatus');
+      status.textContent = 'Enviando...';
+      // Simulação de envio
+      setTimeout(()=> {
+        status.textContent = 'Mensagem enviada! Responderemos em 24-48h.';
+        document.getElementById('contactForm').reset();
+      }, 900);
+    }
+
+    // Plan form submission (simulado)
+    function submitPlanForm(e){
+      e.preventDefault();
+      const status = document.getElementById('planStatus');
+      status.textContent = 'Enviando pedido...';
+      setTimeout(()=> {
+        status.textContent = 'Pedido enviado! Um consultor entrará em contacto.';
+        document.getElementById('planForm').reset();
+        setTimeout(()=> hideModal(), 1400);
+      }, 900);
+    }
+
+    // Basic clients carousel auto-scroll
+    const carousel = document.getElementById('clientCarousel');
+    let offset = 0;
+    setInterval(()=> {
+      offset -= 160;
+      if (Math.abs(offset) > carousel.scrollWidth/1.5) offset = 0;
+      carousel.style.transform = `translateX(${offset}px)`;
+    }, 2200);
+
+    // Small accessibility: focus trap on modal (basic)
+    document.addEventListener('keydown', (e)=> {
+      if (e.key === 'Escape' && !planModal.classList.contains('hidden')) hideModal();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+Reality Dream Tech — Site gerado\nCor principal extraída do logo: #5692c0\nAbra index.html no navegador.
