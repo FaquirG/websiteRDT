@@ -1,8 +1,8 @@
 module.exports = {
-  darkMode: 'class', // Ativa o modo escuro via classe
+  darkMode: 'class',
   content: [
-    "./index.html",
-    "../src/**/*.{js,ts,jsx,tsx,html}",
+    "./dist/*.html",          // procura pelas classes nos HTML dentro de dist
+    "./src/**/*.{js,ts,jsx,tsx,html}", // procura também nos arquivos da pasta src
   ],
   theme: {
     extend: {},
